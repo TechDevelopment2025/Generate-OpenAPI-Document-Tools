@@ -39,8 +39,8 @@ def export_mysql_to_yaml():
         connection = pymysql.connect(
             host='localhost',
             user='root',
-            password='MySQL0711!',
-            database='senior_0824',
+            password='YourDatabasePassword',
+            database='YourDatabase',
             charset='utf8mb4'
         )
         
@@ -192,4 +192,5 @@ def export_mysql_to_yaml():
         traceback.print_exc()
 
 if __name__ == "__main__":
+
     export_mysql_to_yaml()
