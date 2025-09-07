@@ -730,17 +730,17 @@ def create_enhanced_individual_table_spec(table_name, columns):
 def export_enhanced_individual_openapi_specs():
     """Export enhanced individual OpenAPI specs for each table"""
     try:
-        print("🚀 Enhanced Seniorcare Individual OpenAPI Generator Started...")
+        print(" Enhanced Seniorcare Individual OpenAPI Generator Started...")
         connection = pymysql.connect(
             host='localhost',
             user='root',
-            password='MySQL0711!',
-            database='senior_0824',
+            password='YourDatabasePassword',
+            database='YourDatabaseName',
             charset='utf8mb4'
         )
         
         cursor = connection.cursor()
-        print("✅ Connected to database successfully!")
+        print("、 Connected to database successfully!")
         
         cursor.execute("SHOW TABLES")
         raw_tables = cursor.fetchall()
@@ -760,7 +760,7 @@ def export_enhanced_individual_openapi_specs():
                 valid_tables.append(table_name)
             else:
                 invalid_tables.append(table_name)
-                print(f"⚠️  Skipping invalid/non-existent table: '{table_name}'")
+                print(f" Skipping invalid/non-existent table: '{table_name}'")
         
         if not valid_tables:
             print("❌ No valid tables found!")
@@ -768,7 +768,7 @@ def export_enhanced_individual_openapi_specs():
         
         print(f"📋 Found {len(valid_tables)} valid tables")
         if invalid_tables:
-            print(f"⚠️  Skipped {len(invalid_tables)} invalid tables")
+            print(f" Skipped {len(invalid_tables)} invalid tables")
         
         # Create output directory
         os.makedirs('exports/individual_apis_enhanced', exist_ok=True)
@@ -792,7 +792,7 @@ def export_enhanced_individual_openapi_specs():
                 columns = cursor.fetchall()
                 
                 if not columns:
-                    print(f"   ⚠️  Table {table_name} has no columns, skipping...")
+                    print(f"     Table {table_name} has no columns, skipping...")
                     continue
                 
                 # Create enhanced OpenAPI spec
@@ -811,16 +811,14 @@ def export_enhanced_individual_openapi_specs():
                 has_search_params = should_generate_query_params_individual(table_name)
                 if has_search_params:
                     searchable_apis.append(table_name)
-                    status_icon = "🔍"
                     status_text = "Searchable API"
                 else:
                     system_apis.append(table_name)
-                    status_icon = "🗂️"
                     status_text = "System/Reference API"
                 
-                print(f"   ✅ Generated: {output_file}")
+                print(f"    Generated: {output_file}")
                 print(f"   {status_icon} Type: {status_text}")
-                print(f"   📊 Columns: {len(columns)}")
+                print(f"    Columns: {len(columns)}")
                 
                 # Show some key features added
                 features = []
@@ -834,7 +832,7 @@ def export_enhanced_individual_openapi_specs():
                     features.append("Date range filtering")
                 
                 if features:
-                    print(f"   🚀 Features: {', '.join(features)}")
+                    print(f"   Features: {', '.join(features)}")
                 
             except Exception as table_error:
                 print(f"   ❌ Error processing table {table_name}: {table_error}")
@@ -843,42 +841,24 @@ def export_enhanced_individual_openapi_specs():
         connection.close()
         
         # Generate summary report
-        print(f"\n🎉 Enhanced Individual API Generation Completed!")
+        print(f"\n Enhanced Individual API Generation Completed!")
         print(f"=" * 60)
-        print(f"📊 Generation Summary:")
+        print(f" Generation Summary:")
         print(f"   Total APIs Generated: {len(generated_files)}")
-        print(f"   🔍 Searchable APIs: {len(searchable_apis)}")
-        print(f"   🗂️  System/Reference APIs: {len(system_apis)}")
+        print(f"    Searchable APIs: {len(searchable_apis)}")
+        print(f"     System/Reference APIs: {len(system_apis)}")
         
-        print(f"\n🔍 Searchable APIs ({len(searchable_apis)}):")
+        print(f"\n Searchable APIs ({len(searchable_apis)}):")
         for api in searchable_apis:
             print(f"   - {api}")
         
-        print(f"\n🗂️  System/Reference APIs ({len(system_apis)}):")
+        print(f"\n  System/Reference APIs ({len(system_apis)}):")
         for api in system_apis:
             print(f"   - {api}")
         
-        print(f"\n📁 Output Directory: exports/individual_apis_enhanced/")
+        print(f"\n Output Directory: exports/individual_apis_enhanced/")
         
-        print(f"\n🚀 Enhanced Features Added:")
-        print(f"   ✅ Smart query parameters based on table context")
-        print(f"   ✅ Field-level validation and formatting")
-        print(f"   ✅ PATCH endpoints for partial updates")
-        print(f"   ✅ Enhanced error responses with detailed codes")
-        print(f"   ✅ Pagination metadata with navigation info")
-        print(f"   ✅ Email and phone number validation")
-        print(f"   ✅ Date range filtering capabilities")
-        print(f"   ✅ Global search across text fields")
-        print(f"   ✅ Proper OpenAPI 3.1 specification")
-        print(f"   ✅ Operation IDs for code generation")
-        print(f"   ✅ Tags for API organization")
-        
-        print(f"\n📚 Usage:")
-        print(f"   - Import into Swagger UI for interactive documentation")
-        print(f"   - Use with OpenAPI Generator for client SDKs")
-        print(f"   - Import into Postman for API testing")
-        print(f"   - Use for API gateway configuration")
-        
+    
         # Create index file with all APIs
         index_content = OrderedDict([
             ('seniorcare_individual_apis', OrderedDict([
@@ -908,4 +888,5 @@ def export_enhanced_individual_openapi_specs():
         traceback.print_exc()
 
 if __name__ == "__main__":
+
     export_enhanced_individual_openapi_specs()
