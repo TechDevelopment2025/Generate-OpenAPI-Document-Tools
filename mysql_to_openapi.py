@@ -53,8 +53,8 @@ def export_mysql_to_openapi_yaml():
         connection = pymysql.connect(
             host='localhost',
             user='root',
-            password='MySQL0711!',
-            database='senior_0824',
+            password='YourDatabasePassword',
+            database='YourDatabaseName',
             charset='utf8mb4'
         )
         
@@ -96,7 +96,7 @@ def export_mysql_to_openapi_yaml():
         
         # Create main OpenAPI specification using OrderedDict for proper order
         openapi_spec = OrderedDict([
-            ('openapi', '3.0.0'),
+            ('openapi', '3.1.0'),
             ('info', OrderedDict([
                 ('title', 'Seniorcare Management API'),
                 ('description', 'A comprehensive API for managing Seniorcare resources.'),
@@ -443,14 +443,14 @@ def export_mysql_to_openapi_yaml():
                      indent=2, width=1000, sort_keys=False)
         
         print(f"\n🎉 OpenAPI specification saved to {output_file}")
-        print(f"📊 Successfully processed {len(processed_tables)} tables:")
+        print(f"Successfully processed {len(processed_tables)} tables:")
         for table in processed_tables:
             print(f"   - {table}")
         
         connection.close()
         print("\n✅ Export completed successfully!")
         print(f"\nGenerated file: {output_file}")
-        print("\n🚀 You can now:")
+        print("\n You can now:")
         print("   - View it in Swagger UI")
         print("   - Import it into Postman")  
         print("   - Generate API client code")
@@ -462,4 +462,5 @@ def export_mysql_to_openapi_yaml():
         traceback.print_exc()
 
 if __name__ == "__main__":
+
     export_mysql_to_openapi_yaml()
